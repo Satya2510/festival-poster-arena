@@ -110,7 +110,7 @@ details p { margin-top: 8px; font-size: .95rem; color: var(--muted); max-width: 
 <script>
 /* ---- Settings ---------------------------------------------------------- */
 // Paste the Google Apps Script web-app URL here (ends with /exec).
-const ENDPOINT = "";
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbzT_KHj4oGsSkXmNo9JBIEK08UH8sMZM53QxULoADnYUZzYL8D0W0gksleYjtCysgzb/exec";
 // Must match TOKEN in arena_backend/Code.gs. Visible in this public page, so it only stops casual bots.
 const TOKEN = "u7BLLySFs7KM_NR9Ov5ZwbhbLnLU0OVs";
 const MAX_PARTICIPANTS = 50;        // the collector enforces this; shown in the "closed" message
@@ -134,8 +134,16 @@ let sending = false, corsOk = true;
 async function post(batch) {
   const opts = { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ token: TOKEN, items: batch }) };
   if (corsOk) {
-    try { const r = await fetch(ENDPOINT, opts); return await r.json(); }
-    catch (e) { corsOk = false; }            // reply not readable here; fall back to send-only
+    let r;
+    const ctrl = new AbortController(), timer = setTimeout(() => ctrl.abort(), 90000);
+    try { r = await fetch(ENDPOINT, Object.assign({ signal: ctrl.signal }, opts)); }
+    catch (e) { clearTimeout(timer); if (e.name === "AbortError") throw e; corsOk = false; }   // timeout: retry later; CORS: send-only
+    clearTimeout(timer);
+    if (r) {
+      const text = await r.text();
+      if (!text.trim().startsWith("{")) throw new Error("collector busy");   // Google error page: keep and retry
+      return JSON.parse(text);
+    }
   }
   await fetch(ENDPOINT, Object.assign({ mode: "no-cors" }, opts));
   return { ok: true };
@@ -339,9 +347,9 @@ async function finish() {
       <p class="muted" id="status">${status}</p>
     </section>`;
   };
-  draw("Sending your last answers…");
-  // Wait (up to ~30 s) for everything to reach the sheet, then remove personal details from this browser.
-  for (let i = 0; i < 10 && ENDPOINT && S.outbox && S.outbox.length; i++) {
+  draw("Sending your last answers… please keep this page open for a moment.");
+  // Wait (up to ~2 min) for everything to reach the sheet, then remove personal details from this browser.
+  for (let i = 0; i < 40 && ENDPOINT && S.outbox && S.outbox.length; i++) {
     await flush();
     if (S.outbox.length) await new Promise(r => setTimeout(r, 3000));
   }
@@ -349,7 +357,7 @@ async function finish() {
     forgetPersonalData();
     draw("Your name and email have been removed from this browser. You can close this page now.");
   } else {
-    draw("You seem to be offline. Keep this page open, or reopen it later, and your answers will be sent automatically.");
+    draw("Your last answers are still being sent. Please keep this page open a little longer, or reopen this link later on the same device; they will be sent automatically.");
   }
 }
 
