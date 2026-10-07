@@ -1,0 +1,337 @@
+{
+ "generated_at": "2026-10-07T14:23:28+00:00",
+ "models_expected": 3,
+ "ready": true,
+ "prompts": [
+  {
+   "id": "P01",
+   "festival": "Diwali",
+   "shop": "a kirana (grocery) store",
+   "region": "Kanpur, UP",
+   "text": "शुभ दीपावली",
+   "prompt": "Design a festival sale poster for a kirana (grocery) store in Kanpur for Diwali. The poster must contain exactly this Hindi text — Headline: \"शुभ दीपावली\". Visuals: glowing clay diyas, marigold garlands, rangoli, a neat shelf of grocery items. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P01_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P01_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P01_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P02",
+   "festival": "Holi",
+   "shop": "a mithai (sweet) shop",
+   "region": "Mathura, UP",
+   "text": "होली की हार्दिक शुभकामनाएँ",
+   "prompt": "Design a festival sale poster for a mithai (sweet) shop in Mathura for Holi. The poster must contain exactly this Hindi text — Headline: \"होली की हार्दिक शुभकामनाएँ\". Visuals: colourful gulal powder, pichkari, a tray of gujiya and thandai glasses. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P02_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P02_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P02_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P03",
+   "festival": "Raksha Bandhan",
+   "shop": "a mithai (sweet) shop",
+   "region": "Indore, MP",
+   "text": "रक्षाबंधन स्पेशल",
+   "prompt": "Design a festival sale poster for a mithai (sweet) shop in Indore for Raksha Bandhan. The poster must contain exactly this Hindi text — Headline: \"रक्षाबंधन स्पेशल\". Visuals: decorative rakhis, a brother and sister, a box of sweets. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P03_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P03_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P03_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P04",
+   "festival": "Diwali",
+   "shop": "a mobile phone shop",
+   "region": "Lucknow, UP",
+   "text": "दिवाली धमाका सेल | सभी स्मार्टफोन पर 20% तक की छूट",
+   "prompt": "Design a festival sale poster for a mobile phone shop in Lucknow for Diwali. The poster must contain exactly this Hindi text — Headline: \"दिवाली धमाका सेल\"; Offer: \"सभी स्मार्टफोन पर 20% तक की छूट\". Visuals: smartphones arranged with diyas, sparkles and gift boxes. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P04_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P04_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P04_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P05",
+   "festival": "Eid ul-Fitr",
+   "shop": "a men's ethnic-wear (kurta) shop",
+   "region": "Old Delhi (Chandni Chowk)",
+   "text": "ईद मुबारक | कुर्ता-पजामा और पठानी सूट पर 30% छूट",
+   "prompt": "Design a festival sale poster for a men's ethnic-wear (kurta) shop in Old Delhi (Chandni Chowk) for Eid ul-Fitr. The poster must contain exactly this Hindi text — Headline: \"ईद मुबारक\"; Offer: \"कुर्ता-पजामा और पठानी सूट पर 30% छूट\". Visuals: crescent moon, lanterns, a model wearing a white kurta-pajama, a mosque silhouette. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P05_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P05_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P05_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P06",
+   "festival": "Ganesh Chaturthi",
+   "shop": "a mithai (sweet) shop",
+   "region": "Mumbai, Maharashtra",
+   "text": "गणपति बाप्पा मोरया | ताज़े मोदक हर दिन",
+   "prompt": "Design a festival sale poster for a mithai (sweet) shop in Mumbai for Ganesh Chaturthi. The poster must contain exactly this Hindi text — Headline: \"गणपति बाप्पा मोरया\"; Offer: \"ताज़े मोदक हर दिन\". Visuals: a respectful Ganesha idol, modaks on a plate, marigold flowers. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P06_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P06_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P06_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P07",
+   "festival": "Lohri",
+   "shop": "a sweet & dry-fruit shop",
+   "region": "Delhi",
+   "text": "लोहड़ी की लख-लख बधाइयाँ | गजक और रेवड़ी पर 15% छूट",
+   "prompt": "Design a festival sale poster for a sweet & dry-fruit shop in Delhi for Lohri. The poster must contain exactly this Hindi text — Headline: \"लोहड़ी की लख-लख बधाइयाँ\"; Offer: \"गजक और रेवड़ी पर 15% छूट\". Visuals: a bonfire at night, people in Punjabi attire, gajak, rewari, peanuts and popcorn. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P07_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P07_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P07_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P08",
+   "festival": "Durga Puja",
+   "shop": "a saree shop",
+   "region": "Varanasi, UP",
+   "text": "शुभ दुर्गा पूजा | बनारसी साड़ियों पर 20% छूट",
+   "prompt": "Design a festival sale poster for a saree shop in Varanasi for Durga Puja. The poster must contain exactly this Hindi text — Headline: \"शुभ दुर्गा पूजा\"; Offer: \"बनारसी साड़ियों पर 20% छूट\". Visuals: a Durga idol with pandal decor, dhak drum, a model in a red-and-gold Banarasi silk saree. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P08_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P08_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P08_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P09",
+   "festival": "Diwali",
+   "shop": "a mithai (sweet) shop",
+   "region": "Jaipur, Rajasthan",
+   "text": "शर्मा मिष्ठान भंडार | दिवाली स्पेशल ऑफर | काजू कतली ₹899/किलो | ऑर्डर के लिए कॉल करें: 98765 43210",
+   "prompt": "Design a festival sale poster for a mithai (sweet) shop in Jaipur for Diwali. The poster must contain exactly this Hindi text — Shop name: \"शर्मा मिष्ठान भंडार\"; Headline: \"दिवाली स्पेशल ऑफर\"; Price: \"काजू कतली ₹899/किलो\"; Contact: \"ऑर्डर के लिए कॉल करें: 98765 43210\". Visuals: a silver tray of kaju katli, diyas, Rajasthani-style decor. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P09_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P09_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P09_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P10",
+   "festival": "Chhath Puja",
+   "shop": "a kirana (grocery) store",
+   "region": "Patna, Bihar",
+   "text": "गुप्ता किराना स्टोर | छठ पूजा की सम्पूर्ण सामग्री उपलब्ध | पूरा पूजा किट सिर्फ़ ₹499 | होम डिलीवरी: 98765 43210",
+   "prompt": "Design a festival sale poster for a kirana (grocery) store in Patna for Chhath Puja. The poster must contain exactly this Hindi text — Shop name: \"गुप्ता किराना स्टोर\"; Headline: \"छठ पूजा की सम्पूर्ण सामग्री उपलब्ध\"; Price: \"पूरा पूजा किट सिर्फ़ ₹499\"; Contact: \"होम डिलीवरी: 98765 43210\". Visuals: women offering arghya to the rising sun at a river ghat, bamboo soop baskets with thekua, sugarcane and fruits. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P10_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P10_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P10_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P11",
+   "festival": "Eid ul-Fitr",
+   "shop": "a bakery",
+   "region": "Lucknow, UP",
+   "text": "अल-करीम बेकरी | ईद स्पेशल सेवइयाँ | सिर्फ़ ₹250/किलो | कॉल करें: 98765 43210",
+   "prompt": "Design a festival sale poster for a bakery in Lucknow for Eid ul-Fitr. The poster must contain exactly this Hindi text — Shop name: \"अल-करीम बेकरी\"; Headline: \"ईद स्पेशल सेवइयाँ\"; Price: \"सिर्फ़ ₹250/किलो\"; Contact: \"कॉल करें: 98765 43210\". Visuals: bowls of sheer khurma and sewaiyan, crescent moon, lanterns. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P11_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P11_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P11_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P12",
+   "festival": "Dhanteras",
+   "shop": "a jewellery shop",
+   "region": "Jaipur, Rajasthan",
+   "text": "दीपक ज्वैलर्स | धनतेरस धमाका | सोने के गहनों के मेकिंग चार्ज पर 50% छूट | चाँदी के सिक्के ₹999 से शुरू | संपर्क: 98765 43210",
+   "prompt": "Design a festival sale poster for a jewellery shop in Jaipur for Dhanteras. The poster must contain exactly this Hindi text — Shop name: \"दीपक ज्वैलर्स\"; Headline: \"धनतेरस धमाका\"; Offer: \"सोने के गहनों के मेकिंग चार्ज पर 50% छूट\"; Price: \"चाँदी के सिक्के ₹999 से शुरू\"; Contact: \"संपर्क: 98765 43210\". Visuals: gold necklaces and bangles on display, silver coins, diyas, Lakshmi footprints. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian. Render the Hindi text exactly as given, in clear Devanagari script with correct spelling and matras. Do not add any other text.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P12_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P12_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P12_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P13",
+   "festival": "Diwali",
+   "shop": "a kirana (grocery) store",
+   "region": "Kanpur, UP",
+   "text": "दिवाली की ढेरों शुभकामनाएँ | सभी सामान पर 10% छूट | अग्रवाल जनरल स्टोर",
+   "prompt": "Meri kirana dukaan ke liye Diwali ka poster banao, WhatsApp pe bhejna hai. Upar bada likha ho \"दिवाली की ढेरों शुभकामनाएँ\", neeche \"सभी सामान पर 10% छूट\", aur dukaan ka naam \"अग्रवाल जनरल स्टोर\". Diye, rangoli aur dukaan ka saaman dikhna chahiye. Hindi bilkul sahi likhi honi chahiye.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P13_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P13_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P13_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P14",
+   "festival": "Holi",
+   "shop": "a mobile recharge shop",
+   "region": "Bhopal, MP",
+   "text": "होली ऑफर | हर रिचार्ज पर ₹20 कैशबैक | सोनू मोबाइल पॉइंट",
+   "prompt": "Mere mobile recharge shop ke liye Holi offer ka WhatsApp status bana do. Text: \"होली ऑफर\" aur \"हर रिचार्ज पर ₹20 कैशबैक\". Dukaan ka naam \"सोनू मोबाइल पॉइंट\". Rang-gulal wala colourful design ho, mobile phone bhi dikhe. Vertical size mein.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P14_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P14_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P14_a7.webp"
+    }
+   ]
+  },
+  {
+   "id": "P15",
+   "festival": "Dussehra",
+   "shop": "an electronics shop",
+   "region": "Delhi",
+   "text": "(model's choice)",
+   "prompt": "Design a festival sale poster for an electronics shop in Delhi for Dussehra. Write a short Hindi headline and one Hindi offer line of your choice in Devanagari script. Visuals: a Ravan effigy with fireworks, TVs and home appliances. Portrait format (2:3), suitable for WhatsApp Status and Instagram. Bright, festive, professional design that feels authentically Indian.",
+   "images": [
+    {
+     "code": "k2",
+     "src": "img/P15_k2.webp"
+    },
+    {
+     "code": "q9",
+     "src": "img/P15_q9.webp"
+    },
+    {
+     "code": "a7",
+     "src": "img/P15_a7.webp"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Festival Poster Arena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one centred column — intro/consent card, then a round screen (request card above a row of posters), then thanks. */
+:root {
+  --bg: #f7f4ee;
+  --surface: #ffffff;
+  --ink: #1f1a2b;
+  --muted: #645c72;
+  --line: #e4ddd0;
+  --accent: #b4410e;          /* sindoor-marigold */
+  --accent-ink: #ffffff;
+  --accent-soft: #fbe6d6;
+  --pick: #1d6b4a;
+  --pick-soft: #d9f0e4;
+  --warn-soft: #fff1c7;
+  --warn-ink: #6b4c00;
+  --font-body: "Mukta", "Nirmala UI", "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15121b; --surface: #1f1a27; --ink: #f1ecf6; --muted: #a79cb6; --line: #342b40;
+    --accent: #f08a4b; --accent-ink: #1b1209; --accent-soft: #3a2316; --pick: #5fd39b; --pick-soft: #143326;
+    --warn-soft: #3a2f10; --warn-ink: #f6d77a; color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.55;
+       padding-inline: 16px; padding-block: calc(20px + env(safe-area-inset-top, 0px)) calc(48px + env(safe-area-inset-bottom, 0px)); }
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.narrow { max-width: 640px; margin: 0 auto; width: 100%; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.1; margin: 0; text-wrap: balance; }
+h2 { font-size: 1.35rem; font-weight: 800; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+.banner { background: var(--warn-soft); color: var(--warn-ink); border-radius: 10px; padding: 10px 14px; font-size: .95rem; }
+label.field { display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
+input[type=text], input[type=email], input[type=number] { font: inherit; font-weight: 400; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); width: 100%; }
+input:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.consent { display: flex; gap: 10px; align-items: flex-start; background: var(--accent-soft); border-radius: 10px; padding: 12px 14px; cursor: pointer; }
+.consent input { width: 20px; height: 20px; margin-top: 4px; accent-color: var(--accent); flex: none; }
+.error { color: var(--accent); font-weight: 600; min-height: 1.4em; }
+.privacy { border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-size: .95rem; }
+.privacy summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+.privacy ul { margin: 8px 0 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; color: var(--muted); }
+.mono { font-family: var(--font-mono); font-size: .9em; overflow-wrap: anywhere; color: var(--ink); }
+.btn { font: inherit; font-weight: 700; border: none; border-radius: 10px; padding: 12px 22px; background: var(--accent); color: var(--accent-ink); cursor: pointer; align-self: flex-start; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.fact { border-left: 3px solid var(--accent); padding-left: 10px; font-size: .95rem; }
+.fact b { display: block; font-size: 1.05rem; }
+
+/* Round */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.count { font-family: var(--font-mono); font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+.request { display: flex; flex-direction: column; gap: 10px; }
+.request .meta { color: var(--muted); font-size: .95rem; }
+.hindi { font-size: 1.25rem; font-weight: 700; line-height: 1.45; }
+.hindi span { display: inline-block; background: var(--accent-soft); border-radius: 6px; padding: 0 8px; margin: 2px 4px 2px 0; }
+details summary { cursor: pointer; font-weight: 600; color: var(--accent); }
+details p { margin-top: 8px; font-size: .95rem; color: var(--muted); max-width: 75ch; }
+.question { font-size: 1.15rem; font-weight: 800; }
+.posters { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 340px)); justify-content: center; gap: 16px; }
+.poster { background: var(--surface); border: 2px solid var(--line); border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.poster.picked { border-color: var(--pick); background: var(--pick-soft); }
+.poster .imgbtn { all: unset; cursor: zoom-in; display: block; border-radius: 8px; overflow: hidden; background: var(--bg); aspect-ratio: 2 / 3; }
+.poster img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.poster-foot { display: flex; flex-direction: column; gap: 8px; }
+.tag { font-weight: 800; font-size: 1.05rem; }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; border: none; margin: 0; padding: 0; min-width: 0; }
+.scale legend { padding: 0; margin-bottom: 6px; font-weight: 800; font-size: 1.05rem; }
+.scale label { position: relative; }
+.scale input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.scale span { display: flex; align-items: center; justify-content: center; height: 42px; border: 2px solid var(--line); border-radius: 10px; font-weight: 800; font-size: 1.05rem; cursor: pointer; background: var(--surface); font-variant-numeric: tabular-nums; }
+.scale input:checked + span { background: var(--pick); border-color: var(--pick); color: var(--surface); }
+.scale input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.scale-ends { display: flex; justify-content: space-between; font-size: .8rem; color: var(--muted); }
+.next-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.hint { font-size: .9rem; color: var(--muted); }
+
+/* Lightbox */
+.lightbox { position: fixed; inset: 0; background: rgba(10, 8, 14, .92); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 20; cursor: zoom-out; }
+.lightbox img { max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 6px; }
+.lightbox .close { position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: 16px; font: inherit; font-weight: 700; background: #fff; color: #111; border: none; border-radius: 8px; padding: 6px 14px; cursor: pointer; }
+.thanks { text-align: left; }
+@media (prefers-reduced-motion: reduce) { .bar > span { transition: none; } }
+</style>
+</head>
+<body>
+<main class="wrap" id="app">
+  <div class="narrow card"><p class="muted">Loading the posters…</p></div>
+</main>
+<div class="lightbox" id="lightbox" hidden><button class="close" id="lb-close" type="button">Close</button><img id="lb-img" alt=""></div>
+
+<script>
+/* ---- Settings ---------------------------------------------------------- */
+// Paste the Google Apps Script web-app URL here (ends with /exec).
+const ENDPOINT = "";
+// Must match TOKEN in arena_backend/Code.gs. Visible in this public page, so it only stops casual bots.
+const TOKEN = "u7BLLySFs7KM_NR9Ov5ZwbhbLnLU0OVs";
+const MAX_PARTICIPANTS = 50;        // the collector enforces this; shown in the "closed" message
+const CONTACT_EMAIL = "satyanshu.singh10@gmail.com";
+const CONSENT_TEXT = "I confirm that I am 18 years or older. I voluntarily participated in this evaluation. I consent to my name, email, and responses/ratings being included in this assignment submission for hiring evaluation purposes.";
+const STORE = "poster-arena-v1";
+
+/* ---- State ------------------------------------------------------------- */
+let manifest = null;
+let S = load() || { stage: "intro" };
+function load() { try { return JSON.parse(localStorage.getItem(STORE)); } catch (e) { return null; } }
+function save() { try { localStorage.setItem(STORE, JSON.stringify(S)); } catch (e) {} }
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : "id-" + Date.now() + "-" + Math.random().toString(16).slice(2));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const LETTERS = "ABCDEFGH";
+
+/* ---- Sending (queued, retried on the next action if offline) ----------- */
+function queue(item) { S.outbox = S.outbox || []; S.outbox.push(Object.assign({ event_id: uid(), client_time: new Date().toISOString() }, item)); save(); flush(); }
+let sending = false, corsOk = true;
+async function post(batch) {
+  const opts = { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ token: TOKEN, items: batch }) };
+  if (corsOk) {
+    try { const r = await fetch(ENDPOINT, opts); return await r.json(); }
+    catch (e) { corsOk = false; }            // reply not readable here; fall back to send-only
+  }
+  await fetch(ENDPOINT, Object.assign({ mode: "no-cors" }, opts));
+  return { ok: true };
+}
+async function flush() {
+  if (!ENDPOINT || sending || !S.outbox || !S.outbox.length) return;
+  sending = true;
+  const batch = S.outbox.slice(0, 100);
+  try {
+    const res = await post(batch);
+    if (res && res.ok) {
+      const sent = new Set(batch.map(b => b.event_id));
+      S.outbox = S.outbox.filter(b => !sent.has(b.event_id)); save();
+      if (res.full && S.stage === "rounds" && batch.some(b => b.type === "participant" && b.participant_id === S.pid)) {
+        sending = false; return renderClosed(true);
+      }
+    }
+  } catch (e) { /* offline: stays in the outbox */ }
+  sending = false;
+  if (S.outbox && S.outbox.length) setTimeout(flush, 4000);
+}
+window.addEventListener("online", flush);
+
+/** Ask the collector whether new participants are still accepted (fails open; the server still enforces the cap). */
+async function isOpen() {
+  if (!ENDPOINT) return true;
+  try {
+    const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 6000);
+    const r = await fetch(ENDPOINT, { cache: "no-store", signal: ctrl.signal }); clearTimeout(t);
+    const j = await r.json();
+    return j.open !== false;
+  } catch (e) { return true; }
+}
+
+function forgetPersonalData() {
+  if (!S.name && !S.email && !S.draft) return;
+  S.firstName = S.firstName || (S.name || "").split(" ")[0];
+  delete S.name; delete S.email; delete S.age; delete S.draft;
+  S.forgotten = true; save();
+}
+
+function renderClosed(registeredJustNow) {
+  S = { stage: "closed", outbox: [] }; save();
+  app.innerHTML = `
+  <section class="narrow card">
+    <span class="eyebrow">Festival Poster Arena</span>
+    <h1>This survey is now closed</h1>
+    <p>We've reached the maximum of ${MAX_PARTICIPANTS} participants${registeredJustNow ? " just before you started" : ""}. Thank you for your interest, and sorry for the inconvenience.</p>
+    <p class="muted">No details you entered have been kept on this page.</p>
+  </section>`;
+}
+
+/* ---- Screens ----------------------------------------------------------- */
+const app = document.getElementById("app");
+function usablePrompts() { return manifest.prompts.filter(p => p.images.length > 0); }
+
+function renderIntro(err) {
+  const n = usablePrompts().length;
+  const preview = !ENDPOINT ? `<p class="banner">Not open for responses yet. Please wait for the researcher to share the final link.</p>`
+    : !manifest.ready ? `<p class="banner">Preview: not every poster set is complete yet. Please wait for the final link before taking part.</p>` : "";
+  const d = S.draft || {};
+  app.innerHTML = `
+  <section class="narrow card">
+    <span class="eyebrow">Festival Poster Arena</span>
+    <h1>Rate festival posters made by AI</h1>
+    ${preview}
+    <p>Small shop owners across India ask AI tools to make festival offer posters with Hindi text. For each request you'll see the posters different AI tools made for it. The tools are hidden and the order is shuffled. Rate every poster from 1 (very poor) to 5 (excellent), thinking about whether you would post it for the shop.</p>
+    <div class="facts">
+      <div class="fact"><b>${n} requests</b>rate each poster 1–5</div>
+      <div class="fact"><b>About 12 minutes</b>on phone or laptop</div>
+      <div class="fact"><b>Tap a poster</b>to see it full size</div>
+    </div>
+    <form id="f" novalidate class="card" style="padding:0;border:none;gap:14px">
+      <label class="field" for="name">Full name<input type="text" id="name" autocomplete="name" value="${esc(d.name || "")}" required></label>
+      <label class="field" for="email">Email<input type="email" id="email" autocomplete="email" value="${esc(d.email || "")}" required></label>
+      <label class="field" for="age">Age<input type="number" id="age" min="18" max="120" inputmode="numeric" value="${esc(d.age || "")}" required></label>
+      <label class="consent" for="consent"><input type="checkbox" id="consent" ${d.consent ? "checked" : ""}><span>${esc(CONSENT_TEXT)}</span></label>
+      <details class="privacy">
+        <summary>How your data is used</summary>
+        <ul>
+          <li>We collect only your name, email, age, your consent and your poster ratings.</li>
+          <li>They are stored in a private Google Sheet that only the researcher can open.</li>
+          <li>They are used only for a Josh Talks AI hiring assignment. In results, raters appear as R01, R02… and not by name.</li>
+          <li>Your name, email and age are included in the submission only as proof of consent.</li>
+          <li>All responses are deleted after the hiring process ends.</li>
+          <li>To withdraw, ask a question or have your data deleted, email <span class="mono">${esc(CONTACT_EMAIL)}</span>.</li>
+        </ul>
+      </details>
+      <p class="error" id="err" role="alert">${esc(err || "")}</p>
+      <button class="btn" type="submit" id="start" ${n && ENDPOINT ? "" : "disabled"}>Start</button>
+    </form>
+  </section>`;
+  const f = document.getElementById("f");
+  const fv = id => document.getElementById(id);
+  f.addEventListener("input", () => { S.draft = { name: fv("name").value, email: fv("email").value, age: fv("age").value, consent: fv("consent").checked }; save(); });
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    const name = fv("name").value.trim(), email = fv("email").value.trim(), age = parseInt(fv("age").value, 10);
+    if (!name) return renderIntro("Please enter your name.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return renderIntro("Please enter a valid email address.");
+    if (!(age >= 18)) return renderIntro("You need to be 18 or older to take part.");
+    if (!fv("consent").checked) return renderIntro("Please tick the consent box to continue.");
+    const btn = fv("start"); btn.disabled = true; btn.textContent = "Checking…";
+    if (!(await isOpen())) return renderClosed(false);
+    const order = shuffle(usablePrompts().map(p => p.id));
+    S = { stage: "rounds", pid: uid(), name, email, age, order, round: 0, votes: {}, outbox: S.outbox || [] };
+    queue({ type: "participant", participant_id: S.pid, name, email, age, consent: "yes", consent_text: CONSENT_TEXT, prompt_order: order.join(" ") });
+    renderRound();
+  });
+}
+
+function renderRound() {
+  const order = S.order.filter(id => manifest.prompts.some(p => p.id === id && p.images.length));
+  if (S.round >= order.length) return finish();
+  const p = manifest.prompts.find(x => x.id === order[S.round]);
+  // Fix the shuffled order for this participant and prompt the first time it is shown.
+  S.shown = S.shown || {};
+  if (!S.shown[p.id] || S.shown[p.id].length !== p.images.length) S.shown[p.id] = shuffle(p.images.map(i => i.code));
+  if (!S.roundStart || S.roundPid !== p.id) { S.roundStart = Date.now(); S.roundPid = p.id; }
+  S.pending = S.pending && S.pending.pid === p.id ? S.pending : { pid: p.id, scores: {} };
+  save();
+  const imgs = S.shown[p.id].map(code => p.images.find(i => i.code === code));
+  const parts = p.text.split("|").map(t => `<span lang="hi">${esc(t.trim())}</span>`).join("");
+  const total = order.length;
+  const SCALE = [[1, "Very poor"], [2, "Poor"], [3, "OK"], [4, "Good"], [5, "Excellent"]];
+  app.innerHTML = `
+  <div class="top"><span class="eyebrow">Festival Poster Arena</span><span class="count">Request ${S.round + 1} of ${total}</span></div>
+  <div class="bar" aria-hidden="true"><span style="width:${(S.round / total) * 100}%"></span></div>
+  ${!manifest.ready ? `<p class="banner">Preview: some posters for this request are still being made.</p>` : ""}
+  <section class="card request">
+    <span class="meta">${esc(p.festival)} · ${esc(p.shop)} · ${esc(p.region)}</span>
+    <p class="muted">The shop owner asked for a poster with this Hindi text:</p>
+    <p class="hindi">${parts}</p>
+    <details><summary>Read the full request</summary><p>${esc(p.prompt)}</p></details>
+  </section>
+  <p class="question">Rate each poster from 1 to 5. Would you post it for this shop?</p>
+  <section class="posters">
+    ${imgs.map((im, i) => `
+      <article class="poster" data-code="${im.code}" data-pos="${LETTERS[i]}">
+        <button class="imgbtn" type="button" data-zoom="${esc(im.src)}" aria-label="View poster ${LETTERS[i]} full size">
+          <img src="${esc(im.src)}" alt="Poster ${LETTERS[i]}" loading="${i < 3 ? "eager" : "lazy"}">
+        </button>
+        <div class="poster-foot">
+          <fieldset class="scale">
+            <legend>Poster ${LETTERS[i]}</legend>
+            ${SCALE.map(([v, word]) => `<label title="${v} – ${word}"><input type="radio" name="r-${im.code}" id="r-${p.id}-${im.code}-${v}" value="${v}" ${S.pending.scores[im.code] === v ? "checked" : ""}><span aria-label="${v} – ${word}">${v}</span></label>`).join("")}
+          </fieldset>
+          <div class="scale-ends"><span>1 Very poor</span><span>5 Excellent</span></div>
+        </div>
+      </article>`).join("")}
+  </section>
+  <div class="next-row">
+    <button class="btn" type="button" id="next" disabled>${S.round + 1 === total ? "Finish" : "Next request"}</button>
+    <span class="hint" id="left"></span>
+  </div>
+  <p class="hint">Tap a poster to see it full size and read the text.</p>`;
+  window.scrollTo(0, 0);
+  const nextBtn = document.getElementById("next"), left = document.getElementById("left");
+  const refresh = () => {
+    const missing = imgs.length - Object.keys(S.pending.scores).length;
+    nextBtn.disabled = missing > 0;
+    left.textContent = missing > 0 ? `Rate ${missing} more poster${missing > 1 ? "s" : ""} to continue.` : "";
+    app.querySelectorAll(".poster").forEach(el => el.classList.toggle("picked", S.pending.scores[el.dataset.code] != null));
+  };
+  refresh();
+  app.querySelectorAll(".imgbtn").forEach(b => b.addEventListener("click", () => openLightbox(b.dataset.zoom, b.querySelector("img").alt)));
+  app.querySelectorAll(".scale input").forEach(r => r.addEventListener("change", () => {
+    S.pending.scores[r.closest(".poster").dataset.code] = Number(r.value); save(); refresh();
+  }));
+  nextBtn.addEventListener("click", () => {
+    if (S.locked || nextBtn.disabled) return;
+    S.locked = true;
+    const ms = Date.now() - S.roundStart;
+    app.querySelectorAll(".poster").forEach(el => {
+      queue({ type: "rating", participant_id: S.pid, round: S.round + 1, prompt_id: p.id, image_code: el.dataset.code,
+              position: el.dataset.pos, score: S.pending.scores[el.dataset.code], images_shown: imgs.length,
+              shown_order: S.shown[p.id].join(" "), round_ms: ms });
+    });
+    S.votes[p.id] = Object.assign({}, S.pending.scores);
+    S.pending = null; S.roundStart = null; S.round += 1; save();
+    S.locked = false; renderRound();
+  });
+  // Warm the next request's images.
+  const next = manifest.prompts.find(x => x.id === order[S.round + 1]);
+  if (next) next.images.forEach(i => { const im = new Image(); im.src = i.src; });
+}
+
+async function finish() {
+  if (S.stage !== "done") {
+    S.stage = "done";
+    queue({ type: "complete", participant_id: S.pid, votes: Object.keys(S.votes || {}).length });
+  }
+  save();
+  const first = S.firstName || (S.name || "").split(" ")[0];
+  const draw = status => {
+    app.innerHTML = `
+    <section class="narrow card thanks">
+      <span class="eyebrow">Festival Poster Arena</span>
+      <h1>Thank you${first ? ", " + esc(first) : ""}!</h1>
+      <p>Your ratings for ${Object.keys(S.votes || {}).length} requests have been recorded. They will help show which AI tools make better festival posters for Indian shops.</p>
+      <p class="muted" id="status">${status}</p>
+    </section>`;
+  };
+  draw("Sending your last answers…");
+  // Wait (up to ~30 s) for everything to reach the sheet, then remove personal details from this browser.
+  for (let i = 0; i < 10 && ENDPOINT && S.outbox && S.outbox.length; i++) {
+    await flush();
+    if (S.outbox.length) await new Promise(r => setTimeout(r, 3000));
+  }
+  if (!ENDPOINT || !S.outbox || !S.outbox.length) {
+    forgetPersonalData();
+    draw("Your name and email have been removed from this browser. You can close this page now.");
+  } else {
+    draw("You seem to be offline. Keep this page open, or reopen it later, and your answers will be sent automatically.");
+  }
+}
+
+/* ---- Lightbox ---------------------------------------------------------- */
+const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img");
+function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt; lb.hidden = false; document.getElementById("lb-close").focus(); }
+function closeLightbox() { lb.hidden = true; lbImg.src = ""; }
+lb.addEventListener("click", closeLightbox);
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !lb.hidden) closeLightbox(); });
+
+/* ---- Boot -------------------------------------------------------------- */
+fetch("manifest.json", { cache: "no-store" }).then(r => r.json()).then(m => {
+  manifest = m;
+  flush();
+  if (S.stage === "rounds") renderRound();
+  else if (S.stage === "done") finish();
+  else if (S.stage === "closed") renderClosed(false);
+  else {
+    renderIntro();
+    isOpen().then(open => { if (!open && S.stage !== "rounds") renderClosed(false); });
+  }
+}).catch(() => { app.innerHTML = `<section class="narrow card"><p>The posters could not be loaded. Check your connection and refresh the page.</p></section>`; });
+</script>
+</body>
+</html>
