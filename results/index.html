@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Festival Poster Arena Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: summary first — KPI strip, leaderboard, the text-length chart — then a per-prompt explorer with thumbnails. */
+:root {
+  --bg: #f7f4ee; --surface: #ffffff; --ink: #1f1a2b; --muted: #645c72; --line: #e4ddd0;
+  --accent: #b4410e; --warn-bg: #fff1c7; --warn-ink: #6b4c00;
+  --s1: #c0392b; --s2: #e67e22; --s3: #d4ac0d; --s4: #58a65c; --s5: #1e7d45;
+  --font-body: "Mukta", "Nirmala UI", "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #15121b; --surface: #1f1a27; --ink: #f1ecf6; --muted: #a79cb6; --line: #342b40; --accent: #f08a4b;
+          --warn-bg: #3a2f10; --warn-ink: #f6d77a; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+       padding-inline: 16px; padding-block: 24px 64px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+h1 { font-size: clamp(1.7rem, 3.6vw, 2.3rem); font-weight: 800; margin: 0; line-height: 1.1; text-wrap: balance; }
+h2 { font-size: 1.25rem; font-weight: 800; margin: 0 0 12px; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.banner { background: var(--warn-bg); color: var(--warn-ink); border-radius: 10px; padding: 10px 14px; font-weight: 700; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; min-width: 0; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.kpi { border-left: 3px solid var(--accent); padding-left: 12px; }
+.kpi b { display: block; font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; white-space: nowrap; }
+td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rank { font-family: var(--font-mono); font-weight: 600; color: var(--accent); }
+.model { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+.dot { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+.meanbar { position: relative; height: 10px; background: var(--line); border-radius: 999px; min-width: 120px; }
+.meanbar i { position: absolute; inset: 0 auto 0 0; border-radius: 999px; }
+.meanbar s { position: absolute; top: -3px; height: 16px; border-left: 2px solid var(--ink); border-right: 2px solid var(--ink); opacity: .5; text-decoration: none; }
+.chart { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 18px; }
+.group h3 { font-size: .95rem; margin: 0 0 8px; }
+.bars { display: flex; align-items: flex-end; gap: 8px; height: 170px; border-bottom: 1px solid var(--line); }
+.bar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+.bar i { display: block; width: 100%; border-radius: 6px 6px 0 0; }
+.bar span { font-family: var(--font-mono); font-size: .8rem; margin-bottom: 4px; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: .9rem; margin-top: 12px; }
+.legend span { display: flex; align-items: center; gap: 6px; }
+.controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+select { font: inherit; padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--bg); color: var(--ink); }
+.cell { display: flex; align-items: center; gap: 8px; }
+.cell img { width: 48px; height: 72px; object-fit: cover; border-radius: 4px; background: var(--line); cursor: zoom-in; }
+.score { font-family: var(--font-mono); font-weight: 600; padding: 2px 8px; border-radius: 6px; color: #fff; }
+.win { outline: 2px solid var(--ink); outline-offset: 2px; }
+.hindi { font-weight: 700; }
+.lightbox { position: fixed; inset: 0; background: rgba(10, 8, 14, .92); display: flex; align-items: center; justify-content: center; padding: 16px; cursor: zoom-out; z-index: 9; }
+.lightbox img { max-height: 100%; max-width: 100%; }
+footer { font-size: .88rem; color: var(--muted); max-width: 80ch; }
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<div class="lightbox" id="lb" hidden><img id="lbimg" alt=""></div>
+<script>
+const D = {"sample": false, "raters": 8, "started": 11, "ratings": 360, "alpha": 0.11, "secs_per_round": 10.0, "models": [{"id": "gemini-3.1-flash-image", "label": "Gemini 3.1 Flash Image Preview", "company": "Google", "color": "#7a3e9d", "mean": 3.94, "lo": 3.47, "hi": 4.4, "win": 0.64, "ready": 0.7, "won": 14, "n": 120, "text_exact": 1.0, "extra_text": 0.533}, {"id": "gemini-2.5-flash-image", "label": "Gemini 2.5 Flash Image", "company": "Google", "color": "#c98a1b", "mean": 3.18, "lo": 2.79, "hi": 3.58, "win": 0.219, "ready": 0.392, "won": 1, "n": 120, "text_exact": 0.067, "extra_text": 0.067}, {"id": "gpt-image-1", "label": "GPT Image 1", "company": "OpenAI", "color": "#2f6f8f", "mean": 3.04, "lo": 2.6, "hi": 3.46, "win": 0.14, "ready": 0.342, "won": 0, "n": 120, "text_exact": 0.267, "extra_text": 0.067}], "tiers": [{"tier": "Headline only", "gpt-image-1": 2.92, "gemini-2.5-flash-image": 3.0, "gemini-3.1-flash-image": 3.92}, {"tier": "Headline + offer", "gpt-image-1": 3.0, "gemini-2.5-flash-image": 3.15, "gemini-3.1-flash-image": 4.0}, {"tier": "Full poster (4–5 lines)", "gpt-image-1": 3.28, "gemini-2.5-flash-image": 3.31, "gemini-3.1-flash-image": 3.94}, {"tier": "Hinglish request", "gpt-image-1": 3.12, "gemini-2.5-flash-image": 3.19, "gemini-3.1-flash-image": 3.81}, {"tier": "Model writes own Hindi", "gpt-image-1": 2.5, "gemini-2.5-flash-image": 3.38, "gemini-3.1-flash-image": 4.0}], "prompts": [{"id": "P01", "festival": "Diwali", "tier": "Headline only", "text": "शुभ दीपावली", "gpt-image-1": 3.25, "gemini-2.5-flash-image": 3.38, "gemini-3.1-flash-image": 3.75}, {"id": "P02", "festival": "Holi", "tier": "Headline only", "text": "होली की हार्दिक शुभकामनाएँ", "gpt-image-1": 2.38, "gemini-2.5-flash-image": 2.5, "gemini-3.1-flash-image": 4.0}, {"id": "P03", "festival": "Raksha Bandhan", "tier": "Headline only", "text": "रक्षाबंधन स्पेशल", "gpt-image-1": 3.12, "gemini-2.5-flash-image": 3.12, "gemini-3.1-flash-image": 4.0}, {"id": "P04", "festival": "Diwali", "tier": "Headline + offer", "text": "दिवाली धमाका सेल | सभी स्मार्टफोन पर 20% तक की छूट", "gpt-image-1": 3.5, "gemini-2.5-flash-image": 4.0, "gemini-3.1-flash-image": 4.0}, {"id": "P05", "festival": "Eid ul-Fitr", "tier": "Headline + offer", "text": "ईद मुबारक | कुर्ता-पजामा और पठानी सूट पर 30% छूट", "gpt-image-1": 2.5, "gemini-2.5-flash-image": 2.88, "gemini-3.1-flash-image": 3.88}, {"id": "P06", "festival": "Ganesh Chaturthi", "tier": "Headline + offer", "text": "गणपति बाप्पा मोरया | ताज़े मोदक हर दिन", "gpt-image-1": 3.25, "gemini-2.5-flash-image": 2.88, "gemini-3.1-flash-image": 3.75}, {"id": "P07", "festival": "Lohri", "tier": "Headline + offer", "text": "लोहड़ी की लख-लख बधाइयाँ | गजक और रेवड़ी पर 15% छूट", "gpt-image-1": 2.75, "gemini-2.5-flash-image": 2.62, "gemini-3.1-flash-image": 4.25}, {"id": "P08", "festival": "Durga Puja", "tier": "Headline + offer", "text": "शुभ दुर्गा पूजा | बनारसी साड़ियों पर 20% छूट", "gpt-image-1": 3.0, "gemini-2.5-flash-image": 3.38, "gemini-3.1-flash-image": 4.12}, {"id": "P09", "festival": "Diwali", "tier": "Full poster (4–5 lines)", "text": "शर्मा मिष्ठान भंडार | दिवाली स्पेशल ऑफर | काजू कतली ₹899/किलो | ऑर्डर के लिए कॉल करें: 98765 43210", "gpt-image-1": 3.12, "gemini-2.5-flash-image": 2.88, "gemini-3.1-flash-image": 3.75}, {"id": "P10", "festival": "Chhath Puja", "tier": "Full poster (4–5 lines)", "text": "गुप्ता किराना स्टोर | छठ पूजा की सम्पूर्ण सामग्री उपलब्ध | पूरा पूजा किट सिर्फ़ ₹499 | होम डिलीवरी: 98765 43210", "gpt-image-1": 3.5, "gemini-2.5-flash-image": 3.62, "gemini-3.1-flash-image": 4.38}, {"id": "P11", "festival": "Eid ul-Fitr", "tier": "Full poster (4–5 lines)", "text": "अल-करीम बेकरी | ईद स्पेशल सेवइयाँ | सिर्फ़ ₹250/किलो | कॉल करें: 98765 43210", "gpt-image-1": 2.75, "gemini-2.5-flash-image": 3.25, "gemini-3.1-flash-image": 3.75}, {"id": "P12", "festival": "Dhanteras", "tier": "Full poster (4–5 lines)", "text": "दीपक ज्वैलर्स | धनतेरस धमाका | सोने के गहनों के मेकिंग चार्ज पर 50% छूट | चाँदी के सिक्के ₹999 से शुरू | संपर्क: 98765 43210", "gpt-image-1": 3.75, "gemini-2.5-flash-image": 3.5, "gemini-3.1-flash-image": 3.88}, {"id": "P13", "festival": "Diwali", "tier": "Hinglish request", "text": "दिवाली की ढेरों शुभकामनाएँ | सभी सामान पर 10% छूट | अग्रवाल जनरल स्टोर", "gpt-image-1": 3.38, "gemini-2.5-flash-image": 3.38, "gemini-3.1-flash-image": 4.0}, {"id": "P14", "festival": "Holi", "tier": "Hinglish request", "text": "होली ऑफर | हर रिचार्ज पर ₹20 कैशबैक | सोनू मोबाइल पॉइंट", "gpt-image-1": 2.88, "gemini-2.5-flash-image": 3.0, "gemini-3.1-flash-image": 3.62}, {"id": "P15", "festival": "Dussehra", "tier": "Model writes own Hindi", "text": "(model's choice)", "gpt-image-1": 2.5, "gemini-2.5-flash-image": 3.38, "gemini-3.1-flash-image": 4.0}], "img": {"gpt-image-1": "k2", "gemini-2.5-flash-image": "q9", "gemini-3.1-flash-image": "a7"}};
+const IMG_BASE = "../img/";
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pct = v => Math.round(v * 100) + "%";
+const scoreColor = v => v == null ? "var(--line)" : `var(--s${Math.min(5, Math.max(1, Math.round(v)))})`;
+const byId = Object.fromEntries(D.models.map(m => [m.id, m]));
+const order = D.models.map(m => m.id);
+
+function render() {
+  const app = document.getElementById("app");
+  app.innerHTML = `
+  ${D.sample ? `<p class="banner">SAMPLE / FAKE DATA — for testing the pipeline only. Do not report these numbers.</p>` : ""}
+  <header style="display:flex;flex-direction:column;gap:6px">
+    <span class="eyebrow">Festival Poster Arena · Results</span>
+    <h1>Which AI model makes festival posters Indian shops can actually post?</h1>
+    <p class="muted">Blind 1–5 ratings of 15 Hindi festival-offer posters from 3 image models. Posters were shuffled and unlabelled for every rater.</p>
+  </header>
+  <section class="card kpis">
+    <div class="kpi"><b>${D.raters}</b>raters included (of ${D.started})</div>
+    <div class="kpi"><b>${D.ratings}</b>ratings analysed</div>
+    <div class="kpi"><b>${D.alpha ?? "—"}</b>rater agreement (Krippendorff's α)</div>
+    <div class="kpi"><b>${D.secs_per_round}s</b>median time per request</div>
+  </section>
+  <section class="card">
+    <h2>Leaderboard</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>#</th><th>Model</th><th>Mean rating (95% CI)</th><th></th><th>Win rate</th><th>Ready to post (≥4)</th><th>Prompts won</th><th>Hindi exact*</th><th>Added text*</th></tr></thead>
+      <tbody>${D.models.map((m, i) => `
+        <tr>
+          <td class="rank">${i + 1}</td>
+          <td><div class="model"><span class="dot" style="background:${m.color}"></span><span>${esc(m.label)}<br><span class="muted" style="font-weight:400">${esc(m.company)}</span></span></div></td>
+          <td class="num">${m.mean.toFixed(2)} <span class="muted">(${m.lo.toFixed(2)}–${m.hi.toFixed(2)})</span></td>
+          <td><div class="meanbar" title="1 to 5 scale"><i style="width:${(m.mean - 1) / 4 * 100}%;background:${m.color}"></i><s style="left:${(m.lo - 1) / 4 * 100}%;width:${(m.hi - m.lo) / 4 * 100}%"></s></div></td>
+          <td class="num">${pct(m.win)}</td>
+          <td class="num">${pct(m.ready)}</td>
+          <td class="num">${m.won}/15</td>
+          <td class="num">${Math.round(m.text_exact * 15)}/15</td>
+          <td class="num">${Math.round(m.extra_text * 15)}/15</td>
+        </tr>`).join("")}</tbody>
+    </table></div>
+    <p class="muted" style="margin-top:10px;font-size:.88rem">*Researcher check of the Hindi in each poster (not a participant rating). Win rate = share of rater × request rounds where the model got the top score (ties split).</p>
+  </section>
+  <section class="card">
+    <h2>Rating by how much Hindi text was requested</h2>
+    <div class="chart">${D.tiers.map(t => `
+      <div class="group"><h3>${esc(t.tier)}</h3>
+        <div class="bars">${order.map(id => `<div class="bar" title="${esc(byId[id].label)}: ${t[id]}"><span>${t[id]?.toFixed(1) ?? "—"}</span><i style="height:${t[id] ? (t[id] - 1) / 4 * 100 : 0}%;background:${byId[id].color}"></i></div>`).join("")}</div>
+      </div>`).join("")}
+    </div>
+    <div class="legend">${D.models.map(m => `<span><span class="dot" style="background:${m.color}"></span>${esc(m.label)}</span>`).join("")}</div>
+  </section>
+  <section class="card">
+    <h2>Every prompt</h2>
+    <div class="controls"><label for="tier">Show</label>
+      <select id="tier"><option value="">All text tiers</option>${[...new Set(D.prompts.map(p => p.tier))].map(t => `<option>${esc(t)}</option>`).join("")}</select>
+    </div>
+    <div class="scroll"><table>
+      <thead><tr><th>Prompt</th><th>Requested Hindi text</th>${D.models.map(m => `<th>${esc(m.label)}</th>`).join("")}</tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+  <footer>Method: 3 models (exact IDs in generation_log.csv) × 15 prompts, same prompt text and 2:3 portrait settings, first image only. Raters (18+, consented) rated every poster 1–5 for “Would you post it for this shop?”. Confidence intervals bootstrap over raters. Quality rules exclude incomplete, clearly-not-looking (&lt;1 min for all 45 posters) and same-score-everywhere raters. Rater agreement is reported as Krippendorff's α (interval).</footer>`;
+  const sel = document.getElementById("tier");
+  sel.addEventListener("change", () => rows(sel.value));
+  rows("");
+}
+
+function rows(tier) {
+  const list = D.prompts.filter(p => !tier || p.tier === tier);
+  document.getElementById("rows").innerHTML = list.map(p => {
+    const best = Math.max(...order.map(id => p[id] ?? -1));
+    return `<tr>
+      <td><b>${esc(p.id)}</b><br><span class="muted">${esc(p.festival)} · ${esc(p.tier)}</span></td>
+      <td class="hindi" lang="hi">${esc(p.text)}</td>
+      ${order.map(id => `<td><div class="cell">
+        <img src="${IMG_BASE}${esc(p.id)}_${esc(D.img[id])}.webp" alt="${esc(p.id)} ${esc(byId[id].label)}" loading="lazy" data-zoom>
+        <span class="score ${p[id] === best ? "win" : ""}" style="background:${scoreColor(p[id])}">${p[id]?.toFixed(1) ?? "—"}</span></div></td>`).join("")}
+    </tr>`;
+  }).join("");
+  document.querySelectorAll("img[data-zoom]").forEach(im => im.addEventListener("click", () => {
+    document.getElementById("lbimg").src = im.src; document.getElementById("lb").hidden = false;
+  }));
+}
+document.getElementById("lb").addEventListener("click", e => { e.currentTarget.hidden = true; });
+render();
+</script>
+</body>
+</html>
