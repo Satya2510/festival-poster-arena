@@ -84,9 +84,9 @@ function render() {
   app.innerHTML = `
   ${D.sample ? `<p class="banner">SAMPLE / FAKE DATA — for testing the pipeline only. Do not report these numbers.</p>` : ""}
   <header style="display:flex;flex-direction:column;gap:6px">
-    <span class="eyebrow">Festival Poster Arena · Results</span>
-    <h1>Which AI model makes festival posters Indian shops can actually post?</h1>
-    <p class="muted">Blind 1–5 ratings of 15 Hindi festival-offer posters from 3 image models. Posters were shuffled and unlabelled for every rater.</p>
+    <span class="eyebrow">Text-to-Image Evaluation · India</span>
+    <h1>Hindi Festival Offer Posters: Model Leaderboard</h1>
+    <p class="muted">Human evaluation of AI-generated sale posters for Indian small businesses</p>
   </header>
   <section class="card kpis">
     <div class="kpi"><b>${D.raters}</b>raters included (of ${D.started})</div>
@@ -132,7 +132,7 @@ function render() {
       <tbody id="rows"></tbody>
     </table></div>
   </section>
-  <footer>Method: 3 models (exact IDs in generation_log.csv) × 15 prompts, same prompt text and 2:3 portrait settings, first image only. Raters (18+, consented) rated every poster 1–5 for “Would you post it for this shop?”. Confidence intervals bootstrap over raters. Quality rules exclude incomplete, clearly-not-looking (&lt;1 min for all 45 posters) and same-score-everywhere raters. Rater agreement is reported as Krippendorff's α (interval).</footer>`;
+`;
   const sel = document.getElementById("tier");
   sel.addEventListener("change", () => rows(sel.value));
   rows("");
